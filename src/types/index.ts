@@ -3,7 +3,8 @@
  *
  * Este archivo es la base del proyecto: los demás módulos
  * (services, hooks, components y pages) importan estos tipos.
- * Los nombres de campos y tipos deben permanecer estables.
+ * Los nombres de campos y tipos deben permanecer estables:
+ * una vez publicados, no se renombran campos ni funciones.
  */
 
 /** Rol que puede tener un usuario dentro de la plataforma. */
@@ -14,8 +15,7 @@ export type EstadoSolicitud = 'pendiente' | 'aceptada' | 'rechazada'
 
 /**
  * Usuario registrado en AgriMarket.
- * Puede actuar como productor o como consumidor
- * (el rol se puede cambiar sin cerrar sesión).
+ * Puede actuar como productor o como consumidor.
  */
 export interface User {
   /** Identificador único del usuario. */
@@ -23,22 +23,22 @@ export interface User {
   /** Nombre completo del usuario. */
   nombre: string
   /** Correo electrónico (se usa para iniciar sesión). */
-  correo: string
+  email: string
   /** Contraseña de acceso. */
   password: string
-  /** Rol activo del usuario. */
+  /** Rol del usuario en la plataforma. */
   rol: Rol
-  /** Municipio donde se ubica el usuario. */
-  municipio: string
   /** Teléfono de contacto (visible solo con sesión iniciada). */
   telefono: string
-  /** Descripción breve del usuario o de su finca/negocio. */
-  descripcion: string
+  /** Ubicación del usuario (municipio, departamento). */
+  ubicacion: string
+  /** Fecha de registro en formato ISO (ej. "2024-11-24T15:00:00.000Z"). */
+  fechaRegistro: string
 }
 
 /**
  * Producto agrícola publicado por un productor.
- * Los precios están en pesos colombianos (COP).
+ * El precio está en pesos colombianos (COP) por unidad de venta.
  */
 export interface Product {
   /** Identificador único del producto. */
@@ -47,33 +47,35 @@ export interface Product {
   productorId: string
   /** Nombre del producto (ej. "Aguacate Hass"). */
   nombre: string
-  /** Categoría del producto (ver CATEGORIAS). */
-  categoria: Categoria
   /** Descripción del producto. */
   descripcion: string
-  /** Precio por unidad, en COP. */
+  /** Categoría del producto (ver CATEGORIAS). */
+  categoria: Categoria
+  /** Precio por unidad de venta, en COP. */
   precio: number
-  /** Unidad de venta (ver UNIDADES, ej. "kg", "unidad"). */
+  /** Unidad de venta (ver UNIDADES, ej. "libra", "unidad"). */
   unidad: Unidad
   /** Cantidad disponible para la venta. */
   cantidad: number
-  /** Imagen del producto (URL o cadena en base64). */
-  imagen: string
-  /** Si está activo aparece en el catálogo; si no, se oculta y no admite solicitudes. */
-  activo: boolean
-  /** Fecha de publicación en formato ISO (ej. "2024-11-24T15:00:00.000Z"). */
-  fecha: string
+  /** Imagen del producto (URL, opcional). */
+  imagen?: string
+  /** Si está disponible aparece en el catálogo y admite solicitudes. */
+  disponible: boolean
+  /** Fecha de publicación en formato ISO. */
+  fechaPublicacion: string
 }
 
 /**
- * Solicitud de compra que un consumidor hace directamente
- * a un productor (el MVP no maneja pagos en línea).
+ * Solicitud de compra que un consumidor envía a un productor
+ * (el MVP no maneja pagos en línea: la solicitud inicia la negociación).
  */
 export interface Solicitud {
   /** Identificador único de la solicitud. */
   id: string
   /** Id del producto solicitado (referencia a Product.id). */
   productoId: string
+  /** Id del productor dueño del producto (referencia a User.id). */
+  productorId: string
   /** Id del consumidor que solicita (referencia a User.id). */
   consumidorId: string
   /** Cantidad solicitada (no puede superar la disponible). */
@@ -90,24 +92,25 @@ export interface Solicitud {
 export const CATEGORIAS = [
   'Frutas',
   'Verduras',
-  'Hortalizas',
+  'Café',
+  'Panela y derivados',
+  'Miel',
+  'Hierbas y aromáticas',
   'Tubérculos',
   'Granos',
-  'Lácteos',
-  'Hierbas aromáticas',
-  'Café y cacao',
   'Otros',
 ] as const
 
 /** Unidades de venta disponibles para los productos. */
 export const UNIDADES = [
-  'kg',
-  'g',
-  'lb',
+  'libra',
+  'kilogramo',
+  'gramo',
   'unidad',
   'docena',
-  'litro',
   'atado',
+  'frasco de 500 g',
+  'litro',
   'canasta',
 ] as const
 
