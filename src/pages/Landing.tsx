@@ -11,9 +11,8 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 import { obtenerProductos } from '../services/storage'
 
-/** Foto del hero (paisaje agrícola). */
-const FOTO_HERO =
-  'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1600&q=80'
+/** Foto del hero (canastas de la cosecha frente al paisaje agrícola). */
+const FOTO_HERO = '/HeroBanner.png'
 
 /** Foto usada cuando un producto no tiene imagen propia. */
 const FOTO_POR_DEFECTO =
