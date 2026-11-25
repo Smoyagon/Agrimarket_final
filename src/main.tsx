@@ -1,10 +1,18 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
+import { HashRouter } from 'react-router-dom'
+import './styles/index.css'
 import App from './App.tsx'
+import { AuthProvider } from './hooks/useAuth'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <HashRouter>
+      {/* La sesión es global: el provider va dentro del router para que
+          los componentes puedan usar tanto useAuth como useNavigate. */}
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </HashRouter>
   </StrictMode>,
 )

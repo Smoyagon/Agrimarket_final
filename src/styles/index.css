@@ -1,0 +1,52 @@
+/**
+ * Tokens de diseño globales de AgriMarket.
+ *
+ * Paleta y tipografías obligatorias según la guía de estilos.
+ * Se configuran como theme de Tailwind (v4) para generar utilidades:
+ *   - Colores: bg-agri-verde, text-agri-texto, border-agri-borde, etc.
+ *   - Fuentes: font-display (Merriweather, títulos) y font-sans (Poppins, texto)
+ */
+
+/* Fuentes: Merriweather para títulos, Poppins para texto. */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Poppins:wght@400;500;600;700&display=swap');
+
+@import 'tailwindcss';
+
+@theme {
+  /* Paleta AgriMarket */
+  --color-agri-verde: #286343; /* Verde principal */
+  --color-agri-crema: #f4f0e5; /* Fondo crema */
+  --color-agri-blanco: #ffffff; /* Tarjetas */
+  --color-agri-texto: #26352b; /* Texto principal */
+  --color-agri-texto-suave: #5c6860; /* Texto secundario */
+  --color-agri-verde-claro: #6d9563; /* Acentos */
+  --color-agri-superficie: #f9f8f5; /* Superficie de tarjetas y campos */
+  --color-agri-verde-tenue: #eaf2ec; /* Fondos suaves */
+  --color-agri-borde: #d6ddd5; /* Bordes */
+  --color-agri-gris: #6b7280; /* Insignia "desactivado" */
+  --color-agri-rojo: #c0392b; /* Acciones destructivas (eliminar, rechazar) */
+  --color-agri-ambar: #fbefdc; /* Insignia "pendiente", avisos */
+
+  /* Tipografías */
+  --font-display: 'Merriweather', Georgia, serif; /* Títulos */
+  --font-sans: 'Poppins', system-ui, sans-serif; /* Texto */
+}
+
+@layer base {
+  body {
+    /* Base de la app: fondo crema, texto principal, fuente Poppins. */
+    background-color: var(--color-agri-crema);
+    color: var(--color-agri-texto);
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    /* Los títulos usan Merriweather por defecto. */
+    font-family: var(--font-display);
+  }
+}
