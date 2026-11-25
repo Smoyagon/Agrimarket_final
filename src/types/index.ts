@@ -90,26 +90,21 @@ export interface Solicitud {
 
 /** Categorías disponibles para clasificar los productos. */
 export const CATEGORIAS = [
-  'Frutas',
   'Verduras',
-  'Café',
-  'Panela y derivados',
-  'Miel',
-  'Hierbas y aromáticas',
-  'Tubérculos',
+  'Frutas',
   'Granos',
-  'Otros',
+  'Lácteos',
+  'Hierbas y aromáticas',
 ] as const
 
 /** Unidades de venta disponibles para los productos. */
 export const UNIDADES = [
-  'libra',
-  'kilogramo',
-  'gramo',
+  'kg',
+  'g',
+  'lb',
   'unidad',
   'docena',
   'atado',
-  'frasco de 500 g',
   'litro',
   'canasta',
 ] as const

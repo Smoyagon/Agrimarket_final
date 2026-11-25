@@ -9,7 +9,7 @@
  * la interfaz de las funciones exportadas.
  *
  * Claves de almacenamiento:
- * - agrimarket_db_v1: base de datos (usuarios, productos, solicitudes)
+ * - agrimarket_db_v2: base de datos (usuarios, productos, solicitudes)
  * - agrimarket_session_v1: sesión del usuario autenticado
  */
 
@@ -20,8 +20,8 @@ import type {
   User,
 } from '../types'
 
-/** Clave de la base de datos en localStorage. */
-const CLAVE_DB = 'agrimarket_db_v1'
+/** Clave de la base de datos en localStorage (v2: nueva semilla de productos). */
+const CLAVE_DB = 'agrimarket_db_v2'
 
 /** Clave de la sesión en localStorage. */
 const CLAVE_SESION = 'agrimarket_session_v1'
@@ -88,78 +88,59 @@ function construirDatosSemilla(): BaseDatos {
     {
       id: 'producto-1',
       productorId: idJose,
-      nombre: 'Café orgánico de la Sierra',
+      nombre: 'Tomate chonto',
       descripcion:
-        'Café de altura cultivado a 1.700 m s. n. m., tueste medio, notas a chocolate y caramelo. Cosecha reciente.',
-      categoria: 'Café',
-      precio: 28000,
-      unidad: 'libra',
-      cantidad: 50,
-      disponible: true,
-      fechaPublicacion: fechaHaceDias(6),
-    },
-    {
-      id: 'producto-2',
-      productorId: idJose,
-      nombre: 'Panela artesanal',
-      descripcion:
-        'Panela granulada elaborada en trapiche familiar, sin aditivos ni químicos.',
-      categoria: 'Panela y derivados',
-      precio: 4500,
-      unidad: 'libra',
-      cantidad: 200,
-      disponible: true,
-      fechaPublicacion: fechaHaceDias(5),
-    },
-    {
-      id: 'producto-3',
-      productorId: idJose,
-      nombre: 'Aguacate Hass',
-      descripcion:
-        'Aguacate Hass en punto óptimo de maduración, calibre exportación.',
-      categoria: 'Frutas',
-      precio: 3200,
-      unidad: 'unidad',
-      cantidad: 120,
+        'Tomate chonto fresco, cultivado sin químicos en finca familiar. Ideal para ensaladas y guisos.',
+      categoria: 'Verduras',
+      precio: 3500,
+      unidad: 'kg',
+      cantidad: 100,
+      imagen:
+        'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=800&q=80',
       disponible: true,
       fechaPublicacion: fechaHaceDias(4),
     },
     {
-      id: 'producto-4',
+      id: 'producto-2',
       productorId: idJose,
-      nombre: 'Miel de abejas pura',
-      descripcion:
-        'Miel multifloral 100% pura, cosechada en apiario propio sin pasteurizar.',
-      categoria: 'Miel',
-      precio: 15000,
-      unidad: 'frasco de 500 g',
-      cantidad: 40,
+      nombre: 'Zanahoria',
+      descripcion: 'Zanahoria dulce y crocante, cosechada esta semana.',
+      categoria: 'Verduras',
+      precio: 2800,
+      unidad: 'kg',
+      cantidad: 80,
+      imagen:
+        'https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?auto=format&fit=crop&w=800&q=80',
       disponible: true,
       fechaPublicacion: fechaHaceDias(3),
     },
     {
-      id: 'producto-5',
+      id: 'producto-3',
       productorId: idJose,
-      nombre: 'Plátano hartón',
+      nombre: 'Lechuga',
       descripcion:
-        'Plátano hartón verde, ideal para patacones y sancochos. Corte de la semana.',
-      categoria: 'Frutas',
-      precio: 1800,
+        'Lechuga fresca de hoja verde, cortada el mismo día del despacho.',
+      categoria: 'Verduras',
+      precio: 2000,
       unidad: 'unidad',
-      cantidad: 300,
+      cantidad: 60,
+      imagen:
+        'https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?auto=format&fit=crop&w=800&q=80',
       disponible: true,
       fechaPublicacion: fechaHaceDias(2),
     },
     {
-      id: 'producto-6',
+      id: 'producto-4',
       productorId: idJose,
-      nombre: 'Cilantro fresco',
+      nombre: 'Papa',
       descripcion:
-        'Cilantro cultivado sin pesticidas, cosechado el mismo día del despacho.',
-      categoria: 'Hierbas y aromáticas',
-      precio: 1500,
-      unidad: 'atado',
-      cantidad: 80,
+        'Papa criolla y pastusa, perfecta para cocinar, freír o hacer puré.',
+      categoria: 'Verduras',
+      precio: 2500,
+      unidad: 'kg',
+      cantidad: 150,
+      imagen:
+        'https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=800&q=80',
       disponible: true,
       fechaPublicacion: fechaHaceDias(1),
     },
@@ -173,7 +154,7 @@ function construirDatosSemilla(): BaseDatos {
       consumidorId: idLaura,
       cantidad: 3,
       mensaje:
-        'Hola José, me interesa el café para mi cafetería. ¿Manejas precio por volumen si pido 3 libras al mes?',
+        'Hola José, me interesa el tomate para mi restaurante. ¿Manejas precio por volumen si pido 3 kg a la semana?',
       estado: 'pendiente',
       fecha: fechaHaceDias(2),
     },
@@ -184,7 +165,7 @@ function construirDatosSemilla(): BaseDatos {
       consumidorId: idLaura,
       cantidad: 5,
       mensaje:
-        'Buenas tardes, quiero 5 frascos de miel. ¿Cuándo podrías hacer la entrega?',
+        'Buenas tardes, quiero 5 kg de papa. ¿Cuándo podrías hacer la entrega?',
       estado: 'aceptada',
       fecha: fechaHaceDias(1),
     },
