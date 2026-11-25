@@ -9,7 +9,7 @@
  * la interfaz de las funciones exportadas.
  *
  * Claves de almacenamiento:
- * - agrimarket_db_v2: base de datos (usuarios, productos, solicitudes)
+ * - agrimarket_db_v3: base de datos (usuarios, productos, solicitudes)
  * - agrimarket_session_v1: sesión del usuario autenticado
  */
 
@@ -20,8 +20,8 @@ import type {
   User,
 } from '../types'
 
-/** Clave de la base de datos en localStorage (v2: nueva semilla de productos). */
-const CLAVE_DB = 'agrimarket_db_v2'
+/** Clave de la base de datos en localStorage (v3: nombres de productos actualizados). */
+const CLAVE_DB = 'agrimarket_db_v3'
 
 /** Clave de la sesión en localStorage. */
 const CLAVE_SESION = 'agrimarket_session_v1'
@@ -103,7 +103,7 @@ function construirDatosSemilla(): BaseDatos {
     {
       id: 'producto-2',
       productorId: idJose,
-      nombre: 'Zanahoria',
+      nombre: 'Zanahoria fresca',
       descripcion: 'Zanahoria dulce y crocante, cosechada esta semana.',
       categoria: 'Verduras',
       precio: 2800,
@@ -117,7 +117,7 @@ function construirDatosSemilla(): BaseDatos {
     {
       id: 'producto-3',
       productorId: idJose,
-      nombre: 'Lechuga',
+      nombre: 'Lechuga fresca',
       descripcion:
         'Lechuga fresca de hoja verde, cortada el mismo día del despacho.',
       categoria: 'Verduras',
