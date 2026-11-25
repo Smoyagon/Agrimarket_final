@@ -8,6 +8,7 @@
 
 import { useState } from 'react'
 import type { FormEvent } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 
 /** Expresión regular sencilla para validar el formato del correo. */
@@ -15,6 +16,7 @@ const CORREO_VALIDO = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export default function Login() {
   const { iniciarSesion } = useAuth()
+  const navegar = useNavigate()
 
   const [correo, setCorreo] = useState('')
   const [contrasena, setContrasena] = useState('')
@@ -39,7 +41,7 @@ export default function Login() {
     try {
       iniciarSesion(correo.trim(), contrasena)
       // Sesión iniciada: se redirige al catálogo.
-      window.location.hash = '/catalogo'
+      navegar('/catalogo')
     } catch (err) {
       // El servicio lanza errores con mensajes en español.
       setError(err instanceof Error ? err.message : 'Ocurrió un error inesperado')
@@ -109,9 +111,9 @@ export default function Login() {
 
         <p className="mt-6 text-center text-sm text-agri-texto-suave">
           ¿No tienes cuenta?{' '}
-          <a href="#/registro" className="font-semibold text-agri-verde hover:underline">
+          <Link to="/registro" className="font-semibold text-agri-verde hover:underline">
             Regístrate aquí
-          </a>
+          </Link>
         </p>
 
         {/* Nota de demostración con las cuentas de prueba. */}

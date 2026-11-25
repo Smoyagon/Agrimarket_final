@@ -9,6 +9,7 @@
 
 import { useState } from 'react'
 import type { FormEvent } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import type { Rol } from '../types'
 import { useAuth } from '../hooks/useAuth'
 
@@ -31,6 +32,7 @@ const OPCIONES_ROL: { valor: Rol; titulo: string; descripcion: string }[] = [
 
 export default function Register() {
   const { registrarse } = useAuth()
+  const navegar = useNavigate()
 
   const [nombre, setNombre] = useState('')
   const [correo, setCorreo] = useState('')
@@ -74,7 +76,7 @@ export default function Register() {
         rol,
       })
       // El registro inicia la sesión automáticamente: se redirige al catálogo.
-      window.location.hash = '/catalogo'
+      navegar('/catalogo')
     } catch (err) {
       // El servicio lanza errores con mensajes en español.
       setError(err instanceof Error ? err.message : 'Ocurrió un error inesperado')
@@ -222,9 +224,9 @@ export default function Register() {
 
         <p className="mt-6 text-center text-sm text-agri-texto-suave">
           ¿Ya tienes cuenta?{' '}
-          <a href="#/login" className="font-semibold text-agri-verde hover:underline">
+          <Link to="/login" className="font-semibold text-agri-verde hover:underline">
             Inicia sesión
-          </a>
+          </Link>
         </p>
       </div>
     </main>

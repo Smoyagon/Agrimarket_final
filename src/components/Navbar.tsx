@@ -3,28 +3,29 @@
  *
  * Barra fija en la parte superior, fondo blanco con borde inferior suave.
  * Muestra opciones según el estado de la sesión (usa el hook useAuth):
- * - Sin sesión: botones "Iniciar sesión" y "Crear cuenta".
+ * - Sin sesión: botones "Iniciar sesión" y "Registrarse".
  * - Con sesión: saludo con el nombre, insignia con el rol, enlaces según
  *   el rol (Catálogo + Mi panel / Mis solicitudes) y botón Cerrar sesión.
  *
  * Responsive: en celular las opciones se pliegan en un menú hamburguesa.
- * La navegación usa enlaces #/... (el router se conecta en un paso posterior).
  */
 
 import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 
 export default function Navbar() {
   const { usuario, cerrarSesion } = useAuth()
+  const navegar = useNavigate()
   const [menuAbierto, setMenuAbierto] = useState(false)
 
   /** Enlaces visibles solo con sesión, según el rol del usuario. */
   const enlacesSesion = usuario
     ? [
-        { texto: 'Catálogo', href: '#/catalogo' },
+        { texto: 'Catálogo', ruta: '/catalogo' },
         usuario.rol === 'productor'
-          ? { texto: 'Mi panel', href: '#/panel' }
-          : { texto: 'Mis solicitudes', href: '#/mis-solicitudes' },
+          ? { texto: 'Mi panel', ruta: '/panel' }
+          : { texto: 'Mis solicitudes', ruta: '/mis-solicitudes' },
       ]
     : []
 
@@ -32,33 +33,49 @@ export default function Navbar() {
     cerrarSesion()
     setMenuAbierto(false)
     // Al cerrar sesión se vuelve a la landing.
-    window.location.hash = '/'
+    navegar('/')
   }
 
   return (
     <header className="fixed top-0 left-0 z-50 w-full border-b border-agri-borde bg-agri-blanco shadow-sm">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        {/* Logo / nombre de la marca. */}
-        <a
-          href="#/"
-          className="font-display text-xl font-bold text-agri-verde sm:text-2xl"
+        {/* Logo: hoja verde + nombre de la marca. */}
+        <Link
+          to="/"
+          className="flex items-center gap-2 font-display text-xl font-bold text-agri-verde sm:text-2xl"
           onClick={() => setMenuAbierto(false)}
         >
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-agri-verde">
+            <svg
+              className="h-5 w-5 text-agri-blanco"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10zM2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"
+              />
+            </svg>
+          </span>
           AgriMarket
-        </a>
+        </Link>
 
         {/* Opciones en escritorio. */}
         <div className="hidden items-center gap-4 md:flex">
           {usuario ? (
             <>
               {enlacesSesion.map((enlace) => (
-                <a
-                  key={enlace.href}
-                  href={enlace.href}
+                <Link
+                  key={enlace.ruta}
+                  to={enlace.ruta}
                   className="text-sm font-medium text-agri-texto hover:text-agri-verde"
                 >
                   {enlace.texto}
-                </a>
+                </Link>
               ))}
               <span className="text-sm text-agri-texto-suave">
                 Hola, {usuario.nombre.split(' ')[0]}
@@ -76,18 +93,18 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              <a
-                href="#/login"
-                className="rounded-lg border border-agri-verde px-4 py-1.5 text-sm font-semibold text-agri-verde transition-colors hover:bg-agri-verde-tenue"
+              <Link
+                to="/login"
+                className="rounded-lg border border-agri-borde bg-agri-blanco px-4 py-1.5 text-sm font-semibold text-agri-texto transition-colors hover:bg-agri-verde-tenue"
               >
                 Iniciar sesión
-              </a>
-              <a
-                href="#/registro"
+              </Link>
+              <Link
+                to="/registro"
                 className="rounded-lg bg-agri-verde px-4 py-1.5 text-sm font-semibold text-agri-blanco transition-colors hover:bg-agri-verde-claro"
               >
-                Crear cuenta
-              </a>
+                Registrarse
+              </Link>
             </>
           )}
         </div>
@@ -131,14 +148,14 @@ export default function Navbar() {
                 </span>
               </div>
               {enlacesSesion.map((enlace) => (
-                <a
-                  key={enlace.href}
-                  href={enlace.href}
+                <Link
+                  key={enlace.ruta}
+                  to={enlace.ruta}
                   className="rounded-lg px-2 py-2 text-sm font-medium text-agri-texto hover:bg-agri-verde-tenue"
                   onClick={() => setMenuAbierto(false)}
                 >
                   {enlace.texto}
-                </a>
+                </Link>
               ))}
               <button
                 type="button"
@@ -150,20 +167,20 @@ export default function Navbar() {
             </div>
           ) : (
             <div className="flex flex-col gap-2">
-              <a
-                href="#/login"
-                className="rounded-lg border border-agri-verde px-4 py-2 text-center text-sm font-semibold text-agri-verde"
+              <Link
+                to="/login"
+                className="rounded-lg border border-agri-borde px-4 py-2 text-center text-sm font-semibold text-agri-texto"
                 onClick={() => setMenuAbierto(false)}
               >
                 Iniciar sesión
-              </a>
-              <a
-                href="#/registro"
+              </Link>
+              <Link
+                to="/registro"
                 className="rounded-lg bg-agri-verde px-4 py-2 text-center text-sm font-semibold text-agri-blanco"
                 onClick={() => setMenuAbierto(false)}
               >
-                Crear cuenta
-              </a>
+                Registrarse
+              </Link>
             </div>
           )}
         </div>
