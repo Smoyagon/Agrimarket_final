@@ -9,7 +9,7 @@
  * la interfaz de las funciones exportadas.
  *
  * Claves de almacenamiento:
- * - agrimarket_db_v3: base de datos (usuarios, productos, solicitudes)
+ * - agrimarket_db_v1: base de datos (usuarios, productos, solicitudes)
  * - agrimarket_session_v1: sesión del usuario autenticado
  */
 
@@ -20,8 +20,8 @@ import type {
   User,
 } from '../types'
 
-/** Clave de la base de datos en localStorage (v3: nombres de productos actualizados). */
-const CLAVE_DB = 'agrimarket_db_v3'
+/** Clave de la base de datos en localStorage. */
+const CLAVE_DB = 'agrimarket_db_v1'
 
 /** Clave de la sesión en localStorage. */
 const CLAVE_SESION = 'agrimarket_session_v1'
