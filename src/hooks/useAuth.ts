@@ -16,13 +16,7 @@
  * con createElement.
  */
 
-import {
-  createContext,
-  createElement,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
+import { createContext, createElement, useContext, useState } from 'react'
 import type { ReactNode } from 'react'
 import type {
   DatosRegistro,
@@ -39,7 +33,7 @@ import {
 interface ContextoAuth {
   /** Usuario con sesión activa (sin password), o null si no hay sesión. */
   usuario: UsuarioSesion | null
-  /** true mientras se restaura la sesión guardada al cargar la app. */
+  /** true mientras se restaura la sesión (reservado para una futura API asíncrona). */
   cargando: boolean
   /**
    * Inicia sesión y actualiza el estado.
@@ -59,17 +53,13 @@ const AuthContext = createContext<ContextoAuth | null>(null)
 
 /**
  * Proveedor de autenticación. Debe envolver la aplicación una sola vez.
- * Al montar, restaura la sesión guardada (si existe).
+ * Restaura la sesión guardada (si existe) al inicializar el estado.
  */
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [usuario, setUsuario] = useState<UsuarioSesion | null>(null)
-  const [cargando, setCargando] = useState(true)
-
-  // Al cargar la app, se restaura la sesión guardada en localStorage.
-  useEffect(() => {
-    setUsuario(getSesion())
-    setCargando(false)
-  }, [])
+  // La sesión guardada en localStorage se restaura al inicializar el estado
+  // (lectura síncrona, no requiere efecto).
+  const [usuario, setUsuario] = useState<UsuarioSesion | null>(() => getSesion())
+  const [cargando] = useState(false)
 
   const iniciarSesion = (email: string, password: string): UsuarioSesion => {
     // login() lanza Error si las credenciales son inválidas; se propaga.
