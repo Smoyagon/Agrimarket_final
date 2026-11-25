@@ -37,23 +37,23 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-agri-crema text-agri-texto">
-      {/* Hero con foto de fondo */}
-      <section className="relative flex min-h-[70vh] items-center justify-center overflow-hidden px-4 py-20">
+      {/* Hero con foto de fondo (altura compacta para ver los productos de una vez) */}
+      <section className="relative flex h-[340px] items-center justify-center overflow-hidden px-4 sm:h-[400px]">
         <img
           src={FOTO_HERO}
-          alt="Cultivos en el campo colombiano"
+          alt="Canastas de la cosecha frente al paisaje agrícola"
           className="absolute inset-0 h-full w-full object-cover"
         />
         {/* Velo oscuro para que el texto sea legible sobre la foto. */}
         <div className="absolute inset-0 bg-agri-texto/60" aria-hidden="true" />
         <div className="relative max-w-3xl text-center">
-          <h1 className="font-display text-4xl font-black leading-tight text-agri-blanco sm:text-5xl">
+          <h1 className="font-display text-3xl font-black leading-tight text-agri-blanco sm:text-4xl">
             Del campo, con nombre de agricultor
           </h1>
-          <p className="mx-auto mt-4 max-w-xl text-base text-agri-crema sm:text-lg">
+          <p className="mx-auto mt-3 max-w-xl text-sm text-agri-crema sm:text-base">
             Conectamos pequeños productores con consumidores locales
           </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
               to={destinoComprar}
               className="w-full rounded-lg bg-agri-verde px-8 py-3 text-center font-semibold text-agri-blanco shadow transition-colors hover:bg-agri-verde-claro sm:w-auto"
@@ -62,7 +62,7 @@ export default function Landing() {
             </Link>
             <Link
               to={destinoVender}
-              className="w-full rounded-lg bg-agri-verde-claro px-8 py-3 text-center font-semibold text-agri-blanco shadow transition-colors hover:bg-agri-verde sm:w-auto"
+              className="w-full rounded-lg bg-agri-verde px-8 py-3 text-center font-semibold text-agri-blanco shadow transition-colors hover:bg-agri-verde-claro sm:w-auto"
             >
               {usuario ? 'Ver productos' : 'Quiero vender'}
             </Link>
